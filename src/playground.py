@@ -267,3 +267,17 @@ soup('title') # no need for .find_all()
 # find_next() => itterative version of .next_element, works like find()
 # find_all_previous() => itterative version of .previous_element, works like find_all()
 # find_previous() => itterative version of .previous_element, works like find()
+
+soup.select("head > title") #using CSS selectors
+# [<title>Personal Website</title>]
+
+soup.select(".wsite-menu-item") #finds all
+# [
+#     <a class="wsite-menu-item" href="about-me.html">About Me</a>,
+#     <a class="wsite-menu-item" href="education.html">Education</a>,
+#     <a class="wsite-menu-item" href="work-experience.html">Work Experience</a>,
+# ]
+
+soup.select_one(".wsite-menu-item") #finds the first one
+#<a class="wsite-menu-item" href="education.html">Education</a>,
+
