@@ -256,3 +256,14 @@ soup.find_all('a', string=re.compile('Contact'), limit=1)
 
 soup('title') # no need for .find_all()
 # [<title>Personal Website</title>]
+
+# find_parents() => itterative version of .parents, works like find_all()
+# find_parent() => itterative version of .parent, works like find()
+# find_next_siblings() => itterative version of .next_siblings, works like find_all()
+# find_next_sibling() => itterative version of .next_sibling, works like find()
+# find_previous_siblings() => itterative version of .previous_siblings, works like find_all()
+# find_previous_sibling() => itterative version of .previous_sibling, works like find()
+# find_all_next() => itterative version of .next_elements, works like find_all()
+# find_next() => itterative version of .next_element, works like find()
+# find_all_previous() => itterative version of .previous_element, works like find_all()
+# find_previous() => itterative version of .previous_element, works like find()
