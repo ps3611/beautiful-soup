@@ -1,6 +1,7 @@
 from urllib.request import urlopen, Request
 import ssl
 from bs4 import BeautifulSoup
+import re
 
 URL = 'http://www.petertasschindler.me/'
 
@@ -183,3 +184,75 @@ li_tag.next_element.next_element # the next element to the "li" tag is the "a" t
 #     About Me
 # </a>
 
+
+##########################
+### Searching the tree ###
+##########################
+
+# Signature: find_all(name, attrs, recursive, string, limit, **kwargs)
+
+soup.find_all('title') # string match
+# [<title>Personal Website</title>]
+
+for tag in soup.find_all(re.compile("t")): # regex match
+    tag.name
+# html
+# title
+# script
+# meta
+# style
+# script
+# script
+# font
+# font
+# script
+# script
+
+soup.find_all(['title','script']) # list match
+# [
+#     <title>Personal Website</title>,
+#     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-131840698-1"></script>,
+# ]
+
+def has_class_but_no_id(tag):
+    return tag.has_attr('class') and not tag.has_attr('id')
+soup.find_all(has_class_but_no_id) # function based match
+# [
+#     <a class="wsite-menu-item" href="darkroom.html">
+#         Darkroom
+#     </a>,
+#     <a class="wsite-menu-item" href="contact.html">
+#         Contact
+#     </a>,
+#     ...
+# ]
+
+soup.find_all(class_="wsite-menu-item",href="work-experience.html")
+# [
+#     <a class="wsite-menu-item" href="work-experience.html">
+#         Work Experience
+#     </a>,
+#     <a class="wsite-menu-item" href="work-experience.html">
+#         Work Experience
+#     </a>
+# ]
+
+soup.find_all('a', string=re.compile('Contact'))
+# [
+#     <a class="wsite-menu-item" href="contact.html">
+#         Contact
+#     </a>,
+#     <a class="wsite-menu-item" href="contact.html">
+#         Contact
+#     </a>
+# ]
+
+soup.find_all('a', string=re.compile('Contact'), limit=1)
+# [
+#     <a class="wsite-menu-item" href="contact.html">
+#         Contact
+#     </a>
+# ]
+
+soup('title') # no need for .find_all()
+# [<title>Personal Website</title>]
