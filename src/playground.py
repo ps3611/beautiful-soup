@@ -126,3 +126,60 @@ for string in li_tag:
 for string in li_tag.stripped_strings: # ignore whitespace
     repr(string)
 # 'About Me'
+
+a_tag = soup.a
+a_tag
+# <a class="wsite-menu-item" href="about-me.html">
+#     About Me
+# </a>
+
+a_tag.parent
+# <li class="wsite-menu-item-wrap" id="pg516701300478879176">
+#     <a class="wsite-menu-item" href="about-me.html">
+#         About Me
+#     </a>
+# </li>
+
+for parent in a_tag.parents:
+    if parent is None: #when you are at the top
+        parent
+    else:
+        parent.name
+# li
+# ul
+# div
+# div
+# div
+# div
+# body
+# html
+# [document]
+
+li_tag.next_sibling
+# <li class="wsite-menu-item-wrap" id="pg216966727224974482">
+#     <a class="wsite-menu-item" href="education.html">
+#         Education
+#     </a>
+# </li>
+
+li_tag.previous_sibling.previous_sibling
+# None
+
+for sibling in li_tag.next_siblings:
+    sibling
+# <li class="wsite-menu-item-wrap" id="pg216966727224974482">
+#     <a class="wsite-menu-item" href="education.html">
+#         Education
+#     </a>
+# </li>
+# <li class="wsite-menu-item-wrap" id="pg584169040978597121">
+#     <a class="wsite-menu-item" href="work-experience.html">
+#         Work Experience
+#     </a>
+# </li>
+
+li_tag.next_element.next_element # the next element to the "li" tag is the "a" tag
+# <a class="wsite-menu-item" href="about-me.html">
+#     About Me
+# </a>
+
