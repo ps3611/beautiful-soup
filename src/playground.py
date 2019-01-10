@@ -82,3 +82,47 @@ soup.find_all('li') # gets the all li tags
 # </li>
 # ]
 
+li_tag = soup.li
+li_tag.contents # children of tag
+# [
+#     <a class="wsite-menu-item" href="about-me.html">
+#         About Me
+#     </a>
+# ]
+
+li_tag.children # to itterate over children
+# <list_iterator object at 0x104ccb358>
+children_list = list(li_tag.children) # same as .content
+children_list
+# [
+#     <a class="wsite-menu-item" href="about-me.html">
+#         About Me
+#     </a>
+# ]
+len(children_list)
+# 1
+
+li_tag.descendants # to itterate over children
+# <generator object Tag.descendants at 0x1026532a0>
+descendant_list = list(li_tag.descendants)
+descendant_list
+# [
+#     <a class="wsite-menu-item" href="about-me.html">
+#         About Me
+#     </a>,
+#     About Me
+# ]
+len(descendant_list)
+# 2
+
+for string in li_tag:
+    repr(string)
+# '\n'
+# <a class="wsite-menu-item" href="about-me.html">
+#     About Me
+# </a>
+# '\n'
+
+for string in li_tag.stripped_strings: # ignore whitespace
+    repr(string)
+# 'About Me'
