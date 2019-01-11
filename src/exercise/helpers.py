@@ -1,21 +1,4 @@
-from urllib.request import urlopen, Request
-import ssl
-from bs4 import BeautifulSoup
-import re
-
-URL = 'https://live-tennis.eu/en/atp-live-ranking'
-
-# opening website
-req = Request(URL, headers={'User-Agent': 'Mozilla/5.0'})
-context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-opened_url = urlopen(req, context=context)
-
-# parsing website with BS
-soup = BeautifulSoup(opened_url, 'html.parser')
-player_rankings = soup.find(id='plyrRankings')
-player_rows = player_rankings('tr', bgcolor=["#E7E7E7",'white'])
-result = []
-for row in player_rows[100:105]:
+def row_serializer(row):
     ranking_tour = int(row.contents[0].text)
     full_name = row.contents[3].text.split(' ')
     first_name = full_name.pop(0)
@@ -35,7 +18,7 @@ for row in player_rows[100:105]:
     current_tournament_name = current_tournament_name if len(current_tournament) > 1 else previous_tournament_name
     current_tournament_round = current_tournament_round if len(current_tournament) > 1 else previous_tournament_round
     points_tour_next = row.contents[12].text
-    player_dict = {
+    return {
         "first_name": first_name,
         "last_name": last_name,
         "country": country,
@@ -49,5 +32,3 @@ for row in player_rows[100:105]:
         "points_tour_next": points_tour_next,
         "points_tour_change": points_tour_change,
     }
-    result.append(player_dict)
-print(result)
